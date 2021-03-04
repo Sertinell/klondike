@@ -33,7 +33,7 @@ mix_actor Player
   MoveFromTableauToFoundation -down-> GameView
   note on link: showBoard()
   MoveFromTableauToFoundation -down-> Game
-  note on link: isTableauEmpty()\npopCardFromTableau(tableauId)\nputCardInFoundation(card, foundationId)\npeekCardFromTableau(tableauId)\npeekCardFromFoundation(foundationId)\nisFoundation  Empty(foundationId);
+  note on link: getCardFromTableau(tableauId)\nputCardInFoundation(card, foundationId)\nisValidCandidate(n,Card)
 
   MoveFromTableauToFoundation  -down-> ErrorView
   note on link: showError()
