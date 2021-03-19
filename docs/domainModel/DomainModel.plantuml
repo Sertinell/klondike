@@ -7,6 +7,16 @@ together {
     class Tableau
 }
 
+class Foundation{
+    IsValidCandidate(Card)
+    Push(Card)
+}
+
+class Pile{
+    IsValidCandidate(List<Card>)
+    Push(List<Card>)
+}
+
 Game *--> Tableau
 Game *--> "4" Foundation
 Game *--> Deck
