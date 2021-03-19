@@ -1,13 +1,4 @@
-@startuml Player Starts Game
-hide empty description
-
-[*] --> shuffleDeck : The Player runs \nthe application
-shuffleDeck --> generateTableauPiles
-generateTableauPiles --> turnUpperCardFromEachPile
-turnUpperCardFromEachPile --> OpenGame : The game is presented \nto the Player
-@enduml
-
-@startuml Player Flips Card from Deck
+@startuml Player Flips Card from Stock
 state isEmpty <<choice>> 
 state isWasteEmpty <<choice>>
 hide empty description 
@@ -32,52 +23,6 @@ isWasteEmpty -down-> 5
 
 
 @enduml
-
-@startuml Player Moves Card From Waste to Tableau
-repeat:OpenGame;
-:Player Selects Card in Waste;
-repeat while (Waste is Empty?) is (no)
-repeat :Player Selects Card in Tableau;
-repeat while (Valid Card?) is (no)
-:Display Movement;
-:OpenGame;
-@enduml
-
-@startuml Player Moves Card From Waste to Foundation
-hide empty description 
-skinparam linetype polyline
-
-state "**OPEN_GAME**" as OPEN_GAME_INITIAL
-state "**OPEN_GAME**" as OPEN_GAME_FINAL
-state "**CLOSED_GAME**" as CLOSED_GAME
-state "**ShowBoard**" as ShowBoard
-state c <<choice>> 
-state d <<choice>> 
-
-note right of c
-  Waste is not empty
-  Top card of Waste match the following requirements:
-  - Is an Ace, or
-  - Is one upper than top card of the same suite Pile in Foundation
-end note
-
-note left of d
-  All foundations are complete 
-  when it contains the 
-  whole set of cards
-end note
-
-state "." as A
-
-OPEN_GAME_INITIAL -down-> c : Player select Move from Waste To Foundation
-A -down-> d : [Is Foundation complete]
-c -down-> A : [Card matches requirements]
-d -down-> ShowBoard : [False]
-d -right-> CLOSED_GAME : System informs about\ngame completed
-c -right-> OPEN_GAME_FINAL : System informs\nabout Error
-ShowBoard -down-> OPEN_GAME_FINAL
-@enduml
-
 @startuml States Player Moves Card From Waste to Tableau
 hide empty description
 state "OpenGame" as 0
@@ -118,115 +63,7 @@ choice3 --> OpenGame: Foundation not complete
 ShowError -up-> 0
 @enduml
 
-@startuml Player Moves Card From Tableau to Tableau
-hide empty description 
-skinparam linetype polyline
-
-state "**OPEN_GAME**" as OPEN_GAME_INITIAL
-state "**OPEN_GAME**" as OPEN_GAME_FINAL
-
-state "**ShowBoard**" as ShowBoard
-state c <<choice>> 
-
-note right of c
-  The movement is allowed went:
-  - lower card of the selected set of cards is one lower
-    number than top card of destination pile
-end note
-
-state "." as A
-state "." as B
-state "." as C
-state "." as D
-state "." as E
-state "." as G
-state "." as H
-
-OPEN_GAME_INITIAL -down-> A : Player selects Move\nfrom Tableau To Tableau
-A -down-> B : System allows to select Tableau pile source
-B -down-> C : Player selects Source Pile
-C -down-> D : System allows to select number of cards to move
-D -down-> E : Player selects number of cards to move
-E -down-> H : System allows to select destination Tableau pile
-H -down-> c : Player select destination
-c -down-> ShowBoard : [allowed]
-
-c -left-> G
-G --> OPEN_GAME_FINAL : System show Error
-
-ShowBoard -down-> OPEN_GAME_FINAL
-
-@enduml
-
-@startuml Player Moves Card From Foundation to Tableau
-hide empty description 
-skinparam linetype polyline
-
-state "**OPEN_GAME**" as OPEN_GAME_INITIAL
-state "**OPEN_GAME**" as OPEN_GAME_FINAL
-
-state "**ShowBoard**" as ShowBoard
-state c <<choice>> 
-
-note right of c
-  Top card of selected foundation match the following requirements:
-  - Is an King, **or**
-  - there is at least one : Is one lower than top card **and** different color of a Tableau pile
-end note
-
-state "." as A
-state "." as B
-state "." as C
-state "." as D
-state "." as E
-state "." as F
-state "." as H
-state "." as J
-state "." as K <<choice>>
-
-OPEN_GAME_INITIAL -down-> A : Player selects Move\nfrom Foundation To Tableau
-A -down-> B : System allows to select Foundation pile source
-B -down-> C : Player selects Source Foundation pile
-C -down-> c : Movements Available?
-c -down-> D : 1
-c -right-> E : Many
-c --> F : 0
-
-D -down-> ShowBoard
-ShowBoard -down-> OPEN_GAME_FINAL
-E -down-> H : System allows selection of movement
-F -down-> ShowBoard : System shows error
-
-
-H -down-> J : Player selects movement
-J -->K : Valid Destination?
-K --> ShowBoard : Yes
-K --> OPEN_GAME_FINAL: No
-
-@enduml
-
-
-@startuml Player Request Random Movement
-:**Open Game**;
-:Player Selects Hint;
-:System Calculates Random Legal Movement;
-:Display Movement;
-
-if (Game Finished?) then (no)
-  :**Open Game**;
-  stop
-else
-  if (Has Win?) then (yes)
-    :Show Win;
-  else (no)
-    :Show Lost;
-  endif
-  :**Close Game**;
-  stop
-endif
-@enduml
-
-@startuml States Request Random Movement
+@startuml Request Random Movement
 hide empty description
 state " " as S1
 state " " as S2
@@ -248,42 +85,13 @@ choice2 --> S5 : Yes
 S5 --> GameClosed : System show Win
 @enduml
 
-@startuml Player Restarts Game
-hide empty description
-state "**OpenGame**" as OPEN_GAME_INITIAL
-state c <<choice>>
-
-OPEN_GAME_INITIAL --> Confirmation : The Player request to restart game
-Confirmation --> c : System asks for confirmation
-c --> StartGame : Player confirms restart action
-c --> OpenGame : Player does not confirm restart action
-StartGame --> OpenGame
-
-@enduml
-
-@startuml Player Play Again
-hide empty description
-state "**ClosedGame**" as ClosedGame
-ClosedGame -down-> StartGame : Player restarts
-@enduml
-
 @startuml Player Request Help Summary
 hide empty description 
 state "Player asks for the help summary" as 1
-state "Help summary is show" as 2
+state "Help summary is shown" as 2
 OpenGame -down-> 1
 1 --> 2
 2-up-> OpenGame
-@enduml
-
-
-@enduml
-
-@startuml Player Exits Game
-:**OpenGame**;
-:Player selects Exit;
-:System close application;
-end
 @enduml
 
 @startuml States Player Exits Game
