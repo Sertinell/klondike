@@ -6,9 +6,10 @@ state c <<choice>>
 state "**OPEN_GAME**" as OPEN_GAME_INITIAL
 state "**OPEN_GAME**" as OPEN_GAME_FINAL
 state "**StartGame**" as START_GAME
+state "." as A
 
-OPEN_GAME_INITIAL --> Confirmation : The Player request to restart game
-Confirmation --> c : System asks for confirmation
+OPEN_GAME_INITIAL --> A : The Player request to restart game
+A --> c : System asks for confirmation
 c --> START_GAME : [confirmed]
 c --> OPEN_GAME_FINAL : [!confirmed]
 START_GAME --> OPEN_GAME_FINAL

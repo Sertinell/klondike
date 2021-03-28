@@ -9,9 +9,9 @@ state "**ShowBoard**" as ShowBoard
 state c <<choice>> 
 
 note right of c
-  The movement is allowed went:
-  - lower card of the selected set of cards is one lower
-    number than top card of destination pile
+  The movement is allowed when
+  selected card is one lower than 
+  top card of destination pile
 end note
 
 state "." as A
@@ -19,20 +19,16 @@ state "." as B
 state "." as C
 state "." as D
 state "." as E
-state "." as F
-state "." as G
 
 OPEN_GAME_INITIAL -down-> A : Player selects Move\nfrom Tableau To Tableau
-A -down-> B : System allows to select Tableau pile source
-B -down-> C : Player selects Source Foundation pile
-C -down-> D : System allows to select number of cards to move
-D -down-> E : Player selects number of cards to move
-E -down-> c : System allows to select destination Tableau pile
-c -down-> F : [allowed]
-F -down-> ShowBoard
+A -down-> B : System request to select Card
+B -down-> C : Player selects Card to move
+C -down-> c : System request to select\ndestination Tableau pile
+c -down-> D : [allowed]
+D -down-> ShowBoard
 
-c -left-> G 
-G --> OPEN_GAME_FINAL
+c -left-> E : System informs\nabout error
+E --> OPEN_GAME_FINAL : Player acknowledges\nthe error 
 
 ShowBoard -down-> OPEN_GAME_FINAL
 

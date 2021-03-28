@@ -9,18 +9,23 @@ package views {
   GameView --> MenuView
 }
 
+Player -right-> GameView
+note on link: Select action
+
 package controllers{
     class PlayController
     class RestartGameController
     class StartGameController
-    PlayController --> RestartGameController
+    PlayController -right-> RestartGameController
 }
 
-Player -left-> GameView
-note on link: Select action
+package models{
+  class Game
+}
 
 RestartGameController --> ConfirmationView : confirm()
-RestartGameController --> StartGameController
+RestartGameController -right-> StartGameController
+StartGameController --> Game : new()
 
 PlayController --> GameView
 note on link: readAction

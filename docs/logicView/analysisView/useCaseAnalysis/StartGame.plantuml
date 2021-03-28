@@ -17,15 +17,14 @@ package controllers {
 }
 
 package models {
+    class Game
     class Deck
     class Waste
     class Foundation
     class Tableau
-    class Card
     Deck -right[hidden]-> Waste
     Waste -right[hidden]-> Foundation
     Foundation -right[hidden]-> Tableau
-    Tableau -right[hidden]-> Card
 }
 
 Player -down-> GameView
@@ -34,11 +33,11 @@ note on link: Select action
 PlayController --> GameView
 note on link: readAction()
 
-StartGameController ..> Card
-StartGameController -right-> Tableau: \n*new()\n*putCard()\n*FlipLastCard()
-StartGameController --> Waste: \n*new()\n*getCard()
-StartGameController --> Foundation: new()
-StartGameController --> Deck: \n*new()\n*suffle()
+StartGameController --> Game : \n*new()
+Game -down-> Tableau: \n*new()\n*putCard()\n*FlipLastCard()
+Game --> Waste: \n*new()\n*getCard()
+Game --> Foundation: new()
+Game --> Deck: \n*new()\n*suffle()
 
 StartGameController --> GameView : show()
 GameView --> BoardView : show()
