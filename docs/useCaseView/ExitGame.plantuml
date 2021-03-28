@@ -1,0 +1,12 @@
+@startuml States Player Exits Game
+hide empty description
+state "**OPEN_GAME | CLOSED_GAME**" as S0
+state " " as S1
+state " " as S2
+state choice <<choice>>
+S0 -down-> S1 : Player Selects Exit
+S1 -down-> choice : System Requests\n Confirmation
+choice --> S0 : no
+choice -down-> S2
+S2 --> [*] : System Closes \n Application
+@enduml

@@ -1,0 +1,21 @@
+@startuml Player Moves Card From Waste to Tableau
+hide empty description
+state "**OPEN_GAME**" as 0
+state " " as 1
+state " " as 2
+state " " as 3
+state "**ShowBoard**" as 4
+state "**OPEN_GAME**" as 5
+
+0 -down-> 1 : Player selects move from\n waste to tableau
+state choice <<choice>>
+1 -down-> choice : Is waste empty
+choice --> 0
+choice -down-> 3:  No
+3 -down-> 2 : Player selects destination
+state choice1 <<choice>>
+2 -down-> choice1 : Is valid destination?
+choice1 -down-> 4 : Yes
+choice1 --> 3
+4 -down-> 5
+@enduml

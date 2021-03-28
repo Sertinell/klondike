@@ -4,29 +4,37 @@ actor Player as p
 
 package Game {
     usecase "Run Application" as UC0
+    usecase "Restart Game" as UC9
     usecase "Start Game" as UC1
     usecase "Request Random Movement" as UC7
     usecase "Show Help" as UC8
-    usecase "Play Again" as UC9
     usecase "Exit Game" as UC10
     usecase "Move from Waste to Tableau" as UC2
     usecase "Move from Waste to Foundation" as UC11
     usecase "Move from Tableau to Tableau" as UC3
     usecase "Move from Tableau to Foundation" as UC4
     usecase "Move from Foundation to Tableau" as UC12
-    usecase "Flip Deck" as UC6    
+    usecase "**Show Board**" as UC13
 }
 
-p -> UC0
-p--> UC1
-p--> UC2
-p--> UC4
-p--> UC6
-p--> UC7
+p--> UC1 
 p--> UC8
-p--> UC9
+p -> UC0
 p--> UC10
+p--> UC9
+p--> UC2 
+p--> UC4 
+p--> UC7
 p--> UC11
 p--> UC12
+UC1 ..> UC13 : include
+UC2 ..> UC13 : include
+UC3 ..> UC13 : include
+UC4 ..> UC13 : include
+UC7 ..> UC13 : include
+UC11 ..> UC13 : include
+UC12 ..> UC13 : include
+UC9 <.left. UC1 : extend
+
 
 @enduml

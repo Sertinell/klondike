@@ -21,24 +21,6 @@ isWasteEmpty -down-> 5
 3-down-> OpenGame : Show Game
 @enduml
 
-
-@enduml
-@startuml States Player Moves Card From Waste to Tableau
-hide empty description
-state "OpenGame" as 0
-0 -down-> _ : Player Selects Card in Waste
-state choice <<choice>>
-_ --> choice : Is waste empty
-choice --> 0 : Yes
-choice --> .:  No
-. --> Destination : Player selects destination
-state choice1 <<choice>>
-Destination --> choice1 : Is valid destination?
-choice1 --> DisplayGame : Yes
-choice1 --> . : No
-DisplayGame --> OpenGame
-@enduml
-
 @startuml Player Moves Card from Tableau to Foundation
 state choice1 <<choice>> 
 state choice2 <<choice>>
@@ -63,28 +45,6 @@ choice3 --> OpenGame: Foundation not complete
 ShowError -up-> 0
 @enduml
 
-@startuml Request Random Movement
-hide empty description
-state " " as S1
-state " " as S2
-state " " as S3
-state " " as S4
-state " " as S5
-
-OpenGame -down-> S1 : Player selects Hint
-S1 --> S2 : Show Game after computed movement
-state choice <<choice>>
-S2 --> choice : Is game finished?
-choice --> S3 : yes
-choice -up-> OpenGame: no
-state choice2 <<choice>>
-S3 --> choice2 : Has won?
-choice2 --> S4 : No
-S4 --> GameClosed : System show Lost
-choice2 --> S5 : Yes
-S5 --> GameClosed : System show Win
-@enduml
-
 @startuml Player Request Help Summary
 hide empty description 
 state "Player asks for the help summary" as 1
@@ -93,10 +53,3 @@ OpenGame -down-> 1
 1 --> 2
 2-up-> OpenGame
 @enduml
-
-@startuml States Player Exits Game
-hide empty description
-OpenGame --> S1 : Player Selects Exit
-S1 --> [*] : System close application
-@enduml
-

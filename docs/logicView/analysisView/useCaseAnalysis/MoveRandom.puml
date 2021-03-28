@@ -28,13 +28,9 @@ RandomMovementController --> ErrorView
 note on link : showError()
 
 RandomMovementController --> Game
-note on link: getCardFromWaste()\
-\ngetPileSize(n)\
-\ngetCardFromPile(n,m)\
-\ngetCardFromFoundation(n)\
-\nisValidCandidateInPile(n, Card)\
-\nisValidCandidateInFoundation(Card)\
-\nputCardInFoundation(Card)\
-\nputCardInPile(n, Card)
+note on link: moveFromWasteToTableau(nPlie)\n\
+moveFromTableauToTableau(sPile, sCard, dPile)\n\
+moveFromTableauToFoundation(sPile, sCard)\n\
+moveFromFoundationToTableau(sFoundation, dPile)
 
 @enduml

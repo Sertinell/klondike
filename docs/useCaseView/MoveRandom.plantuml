@@ -1,0 +1,16 @@
+@startuml Player Move Random
+hide empty description
+state " " as S1
+state "**ShowBoard**" as S2
+state " " as S3
+state "**OPEN_GAME**" as S0
+state "**OPEN_GAME**" as S6
+state "**CLOSED_GAME**" as S7
+
+S0 -down-> S1 : Player selects\n Random
+S1 --> S2 : System executes \n random legal movement
+state choice <<choice>>
+S2 --> choice : Has won?
+choice -right-> S6 : No
+choice --> S7
+@enduml
