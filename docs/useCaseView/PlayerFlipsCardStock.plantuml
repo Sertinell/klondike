@@ -1,0 +1,22 @@
+@startuml Player Flips Card from Stock
+state isEmpty <<choice>> 
+state isWasteEmpty <<choice>>
+hide empty description 
+state "OpenGame" as 0
+state " " as 1
+state " " as 2
+state " " as 3
+state " " as 4
+state " " as 5
+
+0 -down-> 1: Player selects Stock
+1 -down-> isEmpty: Is stock Smpty?
+isEmpty -down-> 2
+isEmpty --> 4: yes
+2 --> 3: System move 3 cards from Stock to waste
+4 --> isWasteEmpty: Is waste empty?
+isWasteEmpty -down-> OpenGame : yes
+isWasteEmpty -down-> 5 
+5-->2 : Turn down waste
+3-down-> OpenGame : Show Game
+@enduml
