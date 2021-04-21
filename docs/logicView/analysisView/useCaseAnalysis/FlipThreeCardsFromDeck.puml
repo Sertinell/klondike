@@ -1,5 +1,5 @@
-	@startuml
-	mix_actor Player
+@startuml
+mix_actor Player
 
 	package views {
 		class MenuView
@@ -14,30 +14,30 @@
 	}   
 
 	package controllers {
-		class FlipThreeCardsFromDeck  
+		class FlipThreeCardsFromStock  
 	}
 
 	package models {
 		class Game
 		class Card
-		class Deck
+		class Stock
 		class Waste
-		Deck *--> Card
+		Stock *--> Card
 		Waste *--> Card
 		Game *-->Waste
-		Game *-->Deck
+		Game *-->Stock
 	}
 
 
 	Player -right-> MenuView
-	note on link: Select deck\
+	note on link: Select Stock\
 
 
-	FlipThreeCardsFromDeck -down-> GameView
+	FlipThreeCardsFromStock -down-> GameView
 	note on link: showBoard()
-	FlipThreeCardsFromDeck -down-> Game
-	note on link: isDeckEmpty()\nisWasteEmpty()\npopCardFromDeck()\nputCardInWaste(card)\nputWasteInDeck()
+	FlipThreeCardsFromStock -down-> Game
+	note on link: isStockEmpty()\nisWasteEmpty()\npopCardFromStock()\nputCardInWaste(card)\nputWasteInStock()
 
-	FlipThreeCardsFromDeck  -down-> ErrorView
+	FlipThreeCardsFromStock  -down-> ErrorView
 	note on link: showError()
-	@enduml
+@enduml
