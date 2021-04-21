@@ -1,0 +1,23 @@
+@startuml Player Moves Card from Tableau to Foundation
+state choice1 <<choice>> 
+state choice2 <<choice>>
+state choice3 <<choice>> 
+
+hide empty description 
+state "Player select card to Move from a Tableau" as 1
+state "Player select a Foundation as destination" as 2
+state "Board is updated" as 3
+state "OpenGame" as 0
+0 -down-> 1
+
+1 -down-> choice1
+choice1 -down-> 2
+choice1 -right-> ShowError : Selected card cannot be move
+2-down-> choice2
+choice2 -right-> ShowError : Card.Color != Foundation.Color
+choice2 -down-> 3
+3-down-> choice3
+choice3 -right-> Win: All foundations complete
+choice3 --> OpenGame: Foundation not complete
+ShowError -up-> 0
+@enduml
