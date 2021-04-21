@@ -1,6 +1,5 @@
 @startuml Player Moves Card From Waste to Foundation
 hide empty description 
-skinparam linetype polyline
 
 state "**OPEN_GAME**" as OPEN_GAME_INITIAL
 state "**OPEN_GAME**" as OPEN_GAME_FINAL
@@ -10,24 +9,26 @@ state c <<choice>>
 state d <<choice>> 
 
 note right of c
-  Top card of Waste match the following requirements:
-  - Is an Ace, or
-  - Is one upper than top card of the same suite Pile in Foundation
+   Is valid movement?
 end note
 
 note left of d
-  Foundation is complete 
-  when it contains the 
-  hole set of cards
+  Is Foundation complete?
 end note
 
 state "." as A
+state "." as B
 
 OPEN_GAME_INITIAL -down-> c : Player select Move from Waste To Foundation
-A -down-> d : [Is Foundation complete]
-c -down-> A : [Card matches requirements]
+A -down-> d 
+c -down-> A : [True]
 d -down-> ShowBoard : [False]
-d -right-> CLOSED_GAME : System informs about\ngame completed
-c -right-> OPEN_GAME_FINAL : System informs\nabout Error
+d -down-> CLOSED_GAME : System informs\n about game completed
+c -right-> B
+B -right-> ShowBoard : System informs\nabout Error
 ShowBoard -down-> OPEN_GAME_FINAL
+
+A -right[hidden]-> B
+
 @enduml
+

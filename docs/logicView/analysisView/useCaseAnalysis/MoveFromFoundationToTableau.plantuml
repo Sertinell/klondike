@@ -25,8 +25,8 @@ package models {
     class Foundation
     class Pile
 
-    Game ..> Tableau
-    Game ..> Foundation 
+    Game --> Tableau
+    Game --> Foundation 
     Tableau ..> Pile
     Pile ..> Card
     Foundation ..> Card
@@ -35,8 +35,9 @@ package models {
 
 Player -up-> GameView
 note on link : Select action\
-\nSelect origin\
+\nSelect Card\
 \nSelect destination
+
 GameView -left[hidden]-> Player
 
 note on link : Select action\
@@ -47,9 +48,7 @@ PlayController --> GameView
 note on link: readAction()
 
 MoveFromFoundationToTableau --> Game
-note on link : getCardFromFoundation(n)\
-\nputCardInTableau(n, Card)\
-\nisValidCandidateInTableau()
+note on link : MoveFromFoundationToTableau(Card, tableauPileNumber)\
 
 MoveFromFoundationToTableau --> ErrorView
 note on link : showError()

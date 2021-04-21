@@ -9,9 +9,10 @@ state "**ShowBoard**" as ShowBoard
 state c <<choice>> 
 
 note right of c
-  Top card of selected foundation match the following requirements:
+  Selected card matches the following requirements:
   - Is an King, **or**
-  - there is at least one : Is one lower than top card **and** different color of a Tableau pile
+  - Is one lower than top card
+     **and** different color of a destination Tableau pile
 end note
 
 state "." as A
@@ -20,23 +21,19 @@ state "." as C
 state "." as D
 state "." as E
 state "." as F
-state "." as H
-state "." as J
+state "." as G
 
 OPEN_GAME_INITIAL -down-> A : Player selects Move\nfrom Foundation To Tableau
-A -down-> B : System allows to select Foundation pile source
-B -down-> C : Player selects Source Foundation pile
-C -down-> c : System allows to select Tableau destination pile
-c -down-> D : [There is only one valid movement]
-c -right-> E : [There are several valid movements]
-c -left-> F : [No valid movements are\nposible with the selected card] 
+A -down-> B : System request to select Card from Foundation
+B -down-> C : Player selects Card
+C -down-> D : System request to select Tableau destination pile
+D -down-> E : Player selects Tableau destination pile
+E -down-> c : [Is valid movement?]
+c -down-> G : [True]
+c -left-> F : [False] 
 
-D -down-> ShowBoard
+G -down-> ShowBoard
 ShowBoard -down-> OPEN_GAME_FINAL
-E -down-> H : System allows selection of movement
 F -down-> ShowBoard : System shows error
-
-H -down-> J : Player selects which movement wants
-J --> ShowBoard
 
 @enduml

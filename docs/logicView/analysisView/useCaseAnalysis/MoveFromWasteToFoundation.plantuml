@@ -13,8 +13,10 @@ package views {
     note on link: showBoard()
 
     GameView *--> MenuView
-    note on link: Select action\nSelect destination
 }
+
+Player -down-> GameView
+note on link: Select action
 
 package controllers {
     class PlayController
@@ -33,13 +35,6 @@ package models {
     Game *-->Foundation
 }
 
-MoveFromWasteToFoundation ..> Card
-
-Player -up-> MenuView
-note on link: Select action\
-\nSelect destination
-
-
 PlayController --> GameView
 note on link: readAction()
 
@@ -50,7 +45,8 @@ MoveFromWasteToFoundation --> GameView
 note on link: showBoard()
 
 MoveFromWasteToFoundation -down-> Game
-note on link: getCardFromWaste()\nisValidCandidateFoundation(Card)\nputInFoundation(Card)\nisFoundationComplete()
+note on link: *MoveFromWasteToFoundation()\n\
+*isFoundationComplete()
 
 MoveFromWasteToFoundation --> GameCompleteView 
 note on link: showWinner()

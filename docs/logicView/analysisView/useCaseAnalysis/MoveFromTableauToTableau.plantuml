@@ -25,6 +25,7 @@ package models {
     class Pile
     class Tableau
     Tableau ..> Pile
+    Tableau ..> Card
     Game *-->Tableau
 }
 
@@ -34,11 +35,11 @@ note on link: readAction()
 
 Player -down-> GameView
 note on link: Select action\
+\nSelect Card\
 \nSelect destination\
-\nSelect number of cards
 
 MoveFromTableauToTableau --> Game
-note on link : getFromPile(n)\nputInPile(n, Card)
+note on link : MoveFromTableauToTableau(Card, tableauPileNumber)
 
 MoveFromTableauToTableau --> ErrorView
 note on link: showError()

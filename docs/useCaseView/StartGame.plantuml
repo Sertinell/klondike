@@ -3,9 +3,9 @@ hide empty description
 
 state "**CLOSED_GAME**" as CLOSED_GAME
 state "**OPEN_GAME**" as OPEN_GAME
+state "." as A
 
-CLOSED_GAME --> shuffleDeck : The Player select to start new game
-shuffleDeck --> generateTableauPiles
-generateTableauPiles --> turnUpperCardFromEachPile
-turnUpperCardFromEachPile --> OPEN_GAME: The game is presented \nto the Player
-@endum
+CLOSED_GAME --> A : The Player select to start new game
+A --> OPEN_GAME: The game is presented \nto the Player
+
+@enduml
