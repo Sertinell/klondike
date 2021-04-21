@@ -1,0 +1,8 @@
+@startuml Player Request Help Summary
+hide empty description 
+state "Player asks for the help summary" as 1
+state "Help summary is shown" as 2
+OpenGame -down-> 1
+1 --> 2
+2-up-> OpenGame
+@enduml
