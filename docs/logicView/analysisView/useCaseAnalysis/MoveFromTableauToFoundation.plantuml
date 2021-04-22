@@ -6,7 +6,6 @@ package views {
     class MenuView
     class GameCompleteView
     class ErrorView
-    class UserInputView
     class GameView
     class BoardView
 
@@ -15,26 +14,43 @@ package views {
 }
 
 package controllers {
+    class PlayController
     class MoveFromTableauToFoundation
+    PlayController *-right-> MoveFromTableauToFoundation
 }
 
 package models {
+    class Game
     class Card
     class Tableau
     class Foundation
-    Tableau ..> Card
+    class Pile
+
+    Game --> Tableau
+    Game --> Foundation 
+    Tableau ..> Pile
+    Pile ..> Card
     Foundation ..> Card
+    Tableau -right[hidden]-> Foundation
 }
 
-MoveFromTableauToFoundation ..> Card
+Player -up-> GameView
+note on link : Select action\
+\nSelect Card\
+\nSelect destination Pile
 
-Player -up-> MenuView : "option\n"MoveFromTableauToFoundation""
-MenuView --> MoveFromTableauToFoundation : execute()
-MoveFromTableauToFoundation --> Tableau : \n*getFromPile(Pile)\n*putInPile(Pile, Card)
-MoveFromTableauToFoundation --> Foundation : \n*isValidCandidate(Card)\n*isComplete()
-MoveFromTableauToFoundation --> Foundation : put(Card)
-MoveFromTableauToFoundation --> ErrorView : showError()
-MoveFromTableauToFoundation --> GameView : show()
-MoveFromTableauToFoundation --> GameCompleteView : show()
-MoveFromTableauToFoundation --> UserInputView : getPileNumber()
+MoveFromTableauToFoundation --> Game 
+note on link: getFromTableauToFoundation(card, dPile)
+
+MoveFromTableauToFoundation --> ErrorView 
+note on link: showError()
+
+MoveFromTableauToFoundation --> GameView 
+note on link: show()
+
+MoveFromTableauToFoundation --> GameCompleteView 
+note on link: show()
+
+PlayController --> GameView
+note on link: readAction()
 @enduml
